@@ -1,3 +1,3 @@
 require 'eventmachine'
 require "shadowsocks/version"
-require 'shadowsocks/echo'
+require 'shadowsocks/socks5'
