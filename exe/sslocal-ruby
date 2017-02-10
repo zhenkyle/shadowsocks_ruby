@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require "shadowsocks_ruby"
+ShadowsocksRuby::Cli::SslocalRunner.new.execute!()
