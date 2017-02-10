@@ -1,5 +1,7 @@
 # ShadowsocksRuby
 
+[![Join the chat at https://gitter.im/shadowsocks_ruby/Lobby](https://badges.gitter.im/shadowsocks_ruby/Lobby.svg)](https://gitter.im/shadowsocks_ruby/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ShadowsocksRuby is a flexible platform for writing [shadowsocks](https://github.com/shadowsocks/shadowsocks) like tunnel proxy to help you bypass firewalls. With layered protocol strategy, TCP/UDP/(even TLS) connection object and powerful DSL backended by ruby, it make your life easy to develop new tunnel protocols.
 
 Main features include:
