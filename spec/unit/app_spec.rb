@@ -11,7 +11,8 @@ RSpec.describe ShadowsocksRuby::App do
                                 :password=>"password",
                                 :server=>"127.0.0.1",
                                 :__server=>true}
-    described_class.instance
+    # described_class.instance
+    Class.new(described_class).instance # bypass singleton
   }
   it "should be initialized with out raise" do
     evm_double = class_double("EventMachine").as_stubbed_const(:transfer_nested_constants => true).as_null_object
