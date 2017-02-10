@@ -1,4 +1,4 @@
-require 'rbnacl'
+require 'rbnacl/libsodium'
 
 module ShadowsocksRuby
   module Cipher
