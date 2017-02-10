@@ -6,5 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'evented-spec', github: 'ruby-amqp/evented-spec'
+
+gem 'coveralls', require: false
 # Specify your gem's dependencies in shadowsocks_ruby.gemspec
 gemspec

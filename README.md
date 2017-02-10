@@ -1,5 +1,11 @@
 # ShadowsocksRuby
 
+[![Gem Version](https://badge.fury.io/rb/shadowsocks_ruby.svg)](http://badge.fury.io/rb/shadowsocks_ruby)
+[![Build Status](https://travis-ci.org/zhenkyle/shadowsocks_ruby.svg?branch=master)](https://travis-ci.org/zhenkyle/shadowsocks_ruby)
+[![Dependency Status](https://gemnasium.com/zhenkyle/shadowsocks_ruby.svg)](https://gemnasium.com/zhenkyle/shadowsocks_ruby)
+[![Code Climate](https://codeclimate.com/github/zhenkyle/shadowsocks_ruby.svg)](https://codeclimate.com/github/zhenkyle/shadowsocks_ruby)
+[![Coverage Status](https://coveralls.io/repos/zhenkyle/shadowsocks_ruby/badge.svg?branch=master)](https://coveralls.io/r/zhenkyle/shadowsocks_ruby?branch=master)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/zhenkyle/shadowsocks_ruby/blob/master/LICENSE.txt)
 [![Join the chat at https://gitter.im/shadowsocks_ruby/Lobby](https://badges.gitter.im/shadowsocks_ruby/Lobby.svg)](https://gitter.im/shadowsocks_ruby/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ShadowsocksRuby is a flexible platform for writing [shadowsocks](https://github.com/shadowsocks/shadowsocks) like tunnel proxy to help you bypass firewalls. With layered protocol strategy, TCP/UDP/(even TLS) connection object and powerful DSL backended by ruby, it make your life easy to develop new tunnel protocols.
