@@ -1,3 +1,3 @@
-module Shadowsocks
+module ShadowsocksRuby
   VERSION = "0.1.0"
 end

@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require 'drb/drb'
+require 'lrucache'
+
+# The URI for the server to connect to
+URI="druby://localhost:18787"
+
+# The object that handles requests on the server
+FRONT_OBJECT = LRUCache.new(:ttl => 60 * 5)
+
+$SAFE = 1 # disable eval() and friends
+
+DRb.start_service(URI, FRONT_OBJECT)
+# Wait for the drb server thread to finish before exiting.
+DRb.thread.join
