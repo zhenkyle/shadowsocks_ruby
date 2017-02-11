@@ -8,7 +8,7 @@
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/zhenkyle/shadowsocks_ruby/blob/master/LICENSE.txt)
 [![Join the chat at https://gitter.im/shadowsocks_ruby/Lobby](https://badges.gitter.im/shadowsocks_ruby/Lobby.svg)](https://gitter.im/shadowsocks_ruby/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-ShadowsocksRuby is a flexible platform for writing [shadowsocks](https://github.com/shadowsocks/shadowsocks) like tunnel proxy to help you bypass firewalls. With layered protocol strategy, TCP/UDP/(even TLS) connection object and powerful DSL backended by ruby, it make your life easy to develop new tunnel protocols.
+ShadowsocksRuby is a flexible platform for writing [shadowsocks](https://github.com/shadowsocks/shadowsocks) like tunnel proxy to help you bypass firewalls. With layered protocol strategy, TCP/UDP/(even TLS) connection object and powerful DSL backended by ruby, it make your life easy to develop new tunnel (layer 4) protocols.
 
 Main features include:
 
@@ -106,7 +106,7 @@ Common options:
     # Then on local machine
     sslocal-ruby -k secret -s 1.2.3.4
 
-    #Then using `127.0.0.1:1080` as your local SOCKS5 server.
+    # Then using `127.0.0.1:1080` as your local SOCKS5 proxy.
 
 
 ## Development
@@ -125,8 +125,8 @@ module ShadowsocksRuby
 
       def tcp_receive_from_client_first_packet n
         data = async_recv(8)
-        v, c, port, o1, o2, o3, o4, user = data.unpack("CCnC4a*")
-        data << async_recv_until("\0")
+        v, c, port, o1, o2, o3, o4 = data.unpack("CCnC4")
+        user << async_recv_until("\0")
         if v != 4 or c != 1
           send_data "\0\x5b\0\0\0\0\0\0" 
           raise PharseError, "SOCKS version or command not supported: #{v}, #{c}"

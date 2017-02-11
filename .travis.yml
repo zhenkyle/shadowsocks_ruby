@@ -1,5 +1,13 @@
-sudo: false
+sudo: required
+
 language: ruby
+
 rvm:
-  - 2.3.0
-before_install: gem install bundler -v 1.13.6
+  - 2.4
+
+services:
+  - docker
+
+before_install:
+  - gem install bundler -v 1.13.6
+  - docker pull zhenkyle/docker-sslocal

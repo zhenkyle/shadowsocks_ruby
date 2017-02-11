@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = "zhenkyle@gmail.com"
 
   spec.summary       = %q{A flexible platform for writing tunnel proxy to help you bypass firewalls.}
-  spec.description   = %q{ShadowsocksRuby is a flexible platform for writing [shadowsocks](https://github.com/shadowsocks/shadowsocks) like tunnel proxy to help you bypass firewalls.}
+  spec.description   = %q{ShadowsocksRuby is a flexible platform for writing SOCKS (layer 4) like tunnel proxy to help you bypass firewalls.}
   spec.homepage      = "https://github.com/zhenkyle/shadowsocks_ruby"
   spec.license       = "MIT"
 
@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.13"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "rake", "~> 12.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "evented-spec", "~> 1.0.0.beta2"
   spec.add_development_dependency "em-http-request", "~> 1.1.5"
