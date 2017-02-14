@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.author        = "zhenkyle"
   spec.email         = "zhenkyle@gmail.com"
 
-  spec.summary       = %q{A flexible platform for writing tunnel proxy to help you bypass firewalls.}
-  spec.description   = %q{ShadowsocksRuby is a flexible platform for writing SOCKS (layer 4) like tunnel proxy to help you bypass firewalls.}
+  spec.summary       = %q{A SOCKS (layer 4) like tunnel proxy to help you bypass firewalls.}
+  spec.description   = %q{ShadowsocksRuby is a SOCKS (layer 4) like tunnel proxy to help you bypass firewalls.}
   spec.homepage      = "https://github.com/zhenkyle/shadowsocks_ruby"
   spec.license       = "MIT"
 
@@ -35,14 +35,14 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 12.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "evented-spec", "~> 1.0.0.beta2"
-  spec.add_development_dependency "em-http-request", "~> 1.1.5"
-  spec.add_development_dependency('aruba', '~> 0.14.2')
-  spec.add_development_dependency('yard', '~> 0.9.8')
+  spec.add_development_dependency "em-http-request", "~> 1.1", ">= 1.1.5"
+  spec.add_development_dependency('aruba', '~> 0.14', ">= 0.14.2")
+  spec.add_development_dependency('yard', '~> 0.9', ">= 0.9.8")
 
-  spec.add_runtime_dependency "eventmachine", "~> 1.2.1"
-  spec.add_runtime_dependency "rbnacl-libsodium", "~> 1.0.11"
-  spec.add_runtime_dependency "openssl", "~> 2.0.2"
-  spec.add_runtime_dependency "lrucache", "~> 0.1.4"
-  spec.add_runtime_dependency "to_camel_case", "~>1.0.0"
+  spec.add_runtime_dependency "eventmachine", "~> 1.2", ">= 1.2.1"
+  spec.add_runtime_dependency "rbnacl-libsodium", "~> 1.0", ">= 1.0.11"
+  spec.add_runtime_dependency "openssl", "~> 2.0", ">= 2.0.2"
+  spec.add_runtime_dependency "lrucache", "~> 0.1", ">= 0.1.4"
+  spec.add_runtime_dependency "to_camel_case", "~>1.0", ">= 1.0.0"
   spec.add_runtime_dependency 'einhorn'
 end

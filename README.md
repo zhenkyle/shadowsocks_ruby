@@ -8,12 +8,12 @@
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/zhenkyle/shadowsocks_ruby/blob/master/LICENSE.txt)
 [![Join the chat at https://gitter.im/shadowsocks_ruby/Lobby](https://badges.gitter.im/shadowsocks_ruby/Lobby.svg)](https://gitter.im/shadowsocks_ruby/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-ShadowsocksRuby is a flexible platform for writing [shadowsocks](https://github.com/shadowsocks/shadowsocks) like tunnel proxy to help you bypass firewalls. With layered protocol strategy, TCP/UDP/(even TLS) connection object and powerful DSL backended by ruby, it make your life easy to develop new tunnel (layer 4) protocols.
+ShadowsocksRuby is a SOCKS (layer 4) like tunnel proxy to help you bypass firewalls, and also a flexible platform for writing your own tunnel protocols. With layered protocol strategy, TCP/UDP/(even TLS) connection object and powerful DSL backended by ruby, it make your life easy to develop new tunnel (layer 4) protocols.
 
 Main features include:
 
 * **Popular event-driven I/O model:** utilize very little resource but provding extremely high scalability, performance and stability
-* **Vanilla shadowsocks protocol support:** comes with shadowsocks's original version and OTA version protocol support and [shadowsocksr](https://github.com/shadowsocksr/shadowsocksr) 's "http_simple" and "tls_ticket" obfuscation protocol support
+* **Vanilla shadowsocks protocol support:** comes with [shadowsocks](https://github.com/shadowsocks/shadowsocks) 's original version and OTA version protocol support and [shadowsocksr](https://github.com/shadowsocksr/shadowsocksr) 's "http_simple" and "tls_ticket" obfuscation protocol support
 * **Cipher method support:** all known shadowsocks cipher method, including `table` and `chacha20`
 * **Parallel execution support:** support multi workers by using [Einhorn](https://github.com/stripe/einhorn) socket manager to enable parallelism on multi-core CPU, and extra drb server to exchange data within workers
 * **Easy develop your own protocol:** see "Example SOCKS4 Client Proxy in 35 lines"

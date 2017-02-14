@@ -5,11 +5,9 @@ end
 
 # Add more step definitions here
 
-Given(/^shadowsocks python 2.8.2 is installed$/) do
-  step %(I run `ssserver --version`)
-  step %(the output should contain "Shadowsocks 2.8.2")
-  step %(I run `sslocal --version`)
-  step %(the output should contain "Shadowsocks 2.8.2")
+Given(/^docker is installed$/) do
+  step %(I run `docker --version`)
+  step %(the output should contain "Docker version")
 end
 
 Given(/^curl is installed$/) do
