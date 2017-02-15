@@ -57,11 +57,11 @@ module ShadowsocksRuby
         @max_time_dif = 60 * 60 * 24 # time dif (second) setting
         @startup_time = Time.now.to_i - 60 * 30
         @client_data = @params[:lrucache] || LRUCache.new(:ttl => 60 * 5)
+        @connected = EM::DefaultDeferrable.new
       end
 
       def tcp_send_to_remoteserver_first_packet data
-        send_client_change_cipherspec_and_finish data
-
+        @connected.callback { send_client_change_cipherspec_and_finish data }
         class << self
           alias tcp_send_to_remoteserver tcp_send_to_remoteserver_other_packet
         end
@@ -72,12 +72,13 @@ module ShadowsocksRuby
 
       # TLS 1.2 Application Pharse
       def tcp_send_to_remoteserver_other_packet data
-        send_data_application_pharse data
+        @connected.callback { send_data_application_pharse data }
       end
 
       def tcp_receive_from_remoteserver_first_packet n
         send_client_hello
         recv_server_hello
+        @connected.succeed
         class << self
           alias tcp_receive_from_remoteserver tcp_receive_from_remoteserver_other_packet
         end
@@ -121,11 +122,13 @@ module ShadowsocksRuby
       def tcp_receive_from_localbackend_other_packet n
         @no_effect ||= nil
         if !@no_effect
-          head = async_recv 3
-          if head != [CTYPE_Application, *VERSION_TLS_1_2].pack("C3")
-            raise PharseError, "server_decode appdata error"
-          end
-          size = async_recv(2).unpack("n")[0]
+          begin
+            head = async_recv 3
+            if head != [CTYPE_Application, *VERSION_TLS_1_2].pack("C3")
+              raise PharseError, "server_decode appdata error"
+            end
+            size = async_recv(2).unpack("n")[0]
+          end while size == 0
           @buffer << async_recv(size)
         end
 
