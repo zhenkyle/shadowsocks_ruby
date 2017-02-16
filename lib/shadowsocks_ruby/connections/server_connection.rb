@@ -44,7 +44,6 @@ module ShadowsocksRuby
       end
 
       def post_init
-        logger.info {"Accepted #{peer}"}
         App.instance.incr
         super()
       end

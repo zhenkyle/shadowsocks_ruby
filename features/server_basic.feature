@@ -20,5 +20,5 @@ Scenario: I run ssserver-ruby with -k but with no password
 Scenario: I run ssserver-ruby with -k secret
   Given the default aruba exit timeout is 1 second
   When I run `ssserver-ruby -k secret`
-  Then the output should contain "server started"
+  Then the output should contain "Listening on"
   And the exit status should be 0

@@ -29,6 +29,7 @@ module ShadowsocksRuby
     # @param [String] bytes The bytes to parse
     # @return [Array<String, Integer>] Return Host, Port
     def parse_address_bin(bytes)
+      bytes = bytes.dup
       address_type = bytes.slice!(0, 1).unpack("C").first
       case address_type
       when ATYP_IPV4

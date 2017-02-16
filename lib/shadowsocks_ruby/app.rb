@@ -61,11 +61,11 @@ module ShadowsocksRuby
 
 
       @logger = Logger.new(STDOUT).tap do |log|
-      
+        log.datetime_format = '%Y-%m-%d %H:%M:%S '
         if options[:__server]
-          log.progname = "ssserver-ruby"
+          log.progname = "ssserver"
         elsif options[:__client]
-          log.progname = "sslocal-ruby"
+          log.progname = "sslocal"
         end
 
         if options[:verbose]
@@ -111,8 +111,8 @@ module ShadowsocksRuby
       elsif options[:__client]
         start_client
       end
-    #rescue Exception => e
-    #  logger.fatal { e.message + "\n" + e.backtrace.join("\n")}
+    rescue => e
+      logger.fatal e
     end
 
 
@@ -210,7 +210,6 @@ module ShadowsocksRuby
 
           @server = EventMachine.attach_server(socket, klass_server, *server_args)
         end
-        logger.info "server started"
         logger.info "Listening on #{host}:#{port}"
         logger.info "Send QUIT to quit after waiting for all connections to finish."
         logger.info "Send TERM or INT to quit after waiting for up to #{MAX_FAST_SHUTDOWN_SECONDS} seconds for connections to finish."

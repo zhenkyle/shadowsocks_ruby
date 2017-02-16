@@ -23,6 +23,8 @@ module ShadowsocksRuby
 
         def process_first_packet
           address_bin = packet_protocol.tcp_receive_from_client(-1)
+          host, port = Util::parse_address_bin(address_bin)
+          logger.info('connection') { "connecting #{host}:#{port} from #{peer}" }
           create_plexer(@params[:host], @params[:port], RemoteServerConnection)
           plexer.packet_protocol.tcp_send_to_remoteserver address_bin
           class << self

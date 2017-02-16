@@ -25,5 +25,5 @@ Scenario: I run sslocal-ruby with -k secret
 Scenario: I run sslocal-ruby with -k secret -s 1.2.3.4
   Given the default aruba exit timeout is 1 second
   When I run `sslocal-ruby -k secret -s 1.2.3.4`
-  Then the output should contain "server started"
+  Then the output should contain "Listening on"
   And the exit status should be 0

@@ -9,6 +9,7 @@ module ShadowsocksRuby
         def process_first_packet
           address_bin = packet_protocol.tcp_receive_from_localbackend(-1)
           host, port = Util::parse_address_bin(address_bin)
+          logger.info('connection') { "connecting #{host}:#{port} from #{peer}" }
           create_plexer(host, port, DestinationConnection)
           class << self
             alias process_hook process_other_packet
