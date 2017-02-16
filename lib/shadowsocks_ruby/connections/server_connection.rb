@@ -26,18 +26,21 @@ module ShadowsocksRuby
       #
       # @param [Protocols::ProtocolStack] protocol_stack
       # @param [Hash] params
+      # @option params [Integer] :timeout set +comm_inactivity_timeout+
       # @param [Protocols::ProtocolStack] backend_protocol_stack
       # @param [Hash] backend_params
+      # @option backend_params [Integer] :timeout set +comm_inactivity_timeout+
       # @return [Connection_Object]
       def initialize protocol_stack, params, backend_protocol_stack, backend_params
         super()
 
-        @packet_protocol = protocol_stack.build!(self)      
+        @packet_protocol = protocol_stack.build!(self)
 
         @params = params
 
         @backend_protocol_stack = backend_protocol_stack
         @backend_params = backend_params
+        self.comm_inactivity_timeout = @params[:timeout] if @params[:timeout] && @params[:timeout] != 0
       end
 
       def post_init

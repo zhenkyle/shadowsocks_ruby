@@ -169,9 +169,9 @@ module ShadowsocksRuby
 
       server_args = [
         stack3,
-        {},
+        {:timeout => options[:timeout]},
         stack4,
-        {}
+        {:timeout => options[:timeout]}
       ]
 
       start_em options[:server], options[:port], Connections::TCP::LocalBackendConnection, server_args
@@ -190,9 +190,9 @@ module ShadowsocksRuby
 
       local_args = [
         stack1,
-        {:host => options[:server], :port => options[:port]},
+        {:host => options[:server], :port => options[:port], :timeout => options[:timeout]},
         stack2,
-        {}
+        {:timeout => options[:timeout]}
       ]
 
       start_em options[:local_addr], options[:local_port], Connections::TCP::ClientConnection, local_args

@@ -25,13 +25,15 @@ module ShadowsocksRuby
       #
       # @param [Protocols::ProtocolStack] protocol_stack
       # @param [Hash] params
+      # @option params [Integer] :timeout set +comm_inactivity_timeout+
       # @return [Connection_Object]
       def initialize protocol_stack, params
         super()
 
-        @packet_protocol = protocol_stack.build!(self)    
+        @packet_protocol = protocol_stack.build!(self)
 
         @params = params
+        self.comm_inactivity_timeout = @params[:timeout] if @params[:timeout] && @params[:timeout] != 0
         @connected = EM::DefaultDeferrable.new
       end
 
