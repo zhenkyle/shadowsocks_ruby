@@ -24,6 +24,7 @@ module ShadowsocksRuby
   #
   # * Shared socket manager does not work on Windows
   #
+
   class App
     include Singleton
 
@@ -40,6 +41,24 @@ module ShadowsocksRuby
 
     def initialize
       @options = @@options
+
+      @totalcounter = 0
+      @maxcounter = 0
+      @counter = 0
+      if options[:__server]
+        name = "ssserver-ruby"
+        host = options[:server]
+        port = options[:port]
+      elsif options[:__client]
+        name = "sslocal-ruby"
+        host = options[:local_addr]
+        port = options[:local_port]
+      end
+      @name = name
+      @listen = "#{host}:#{port}"
+
+      update_procline
+
 
       @logger = Logger.new(STDOUT).tap do |log|
       
@@ -60,6 +79,32 @@ module ShadowsocksRuby
 
     end
 
+    def update_procline
+      $0 = "shadowsocks_ruby #{VERSION} - #{@name} #{@listen} - #{stats} cur/max/tot conns"
+    end
+
+    def stats
+      "#{@counter}/#{@maxcounter}/#{@totalcounter}"
+    end
+
+    def incr
+      @totalcounter += 1
+      @counter += 1
+      @maxcounter = @counter if @counter > @maxcounter
+      update_procline
+      @counter
+    end
+
+    def decr
+      @counter -= 1
+      if @server.nil?
+        logger.info "Waiting for #{@counter} connections to finish."
+      end
+      update_procline
+      EventMachine.stop_event_loop if @server.nil? and @counter == 0
+      @counter
+    end
+
     def run!
       if options[:__server]
         start_server
@@ -70,56 +115,44 @@ module ShadowsocksRuby
     #  logger.fatal { e.message + "\n" + e.backtrace.join("\n")}
     end
 
+
     def trap_signals
       STDOUT.sync = true
       STDERR.sync = true
-       trap('QUIT') do
-        self.fast_shutdown('QUIT')
+      Signal.trap('QUIT') do
+        graceful_shutdown('QUIT')
       end
-      trap('TERM') do
-        self.fast_shutdown('TERM')
+      Signal.trap('TERM') do
+        fast_shutdown('TERM')
       end
-      trap('INT') do
-        self.fast_shutdown('INT')
+      Signal.trap('INT') do
+        fast_shutdown('INT')
       end
     end
 
-    # TODO: next_tick can't be called from trap context
     def graceful_shutdown(signal)
       EventMachine.stop_server(@server) if @server
-      Thread.new{ logger.info "Received #{signal} signal. No longer accepting new connections." }
-      Thread.new{ logger.info "Waiting for #{EventMachine.connection_count} connections to finish." }
+      threads = []
+      threads << Thread.new{ logger.info "Received #{signal} signal. No longer accepting new connections." }
+      threads << Thread.new{ logger.info "Waiting for #{@counter} connections to finish." }
+      threads.each { |thr| thr.join }
       @server = nil
-      graceful_shutdown_check
+      EventMachine.stop_event_loop if @counter == 0
     end
 
-    # TODO: next_tick can't be called from trap context
-    def graceful_shutdown_check
-      EventMachine.next_tick do
-        count = EventMachine.connection_count
-        if count == 0
-          EventMachine.stop_event_loop
-        else
-          @wait_count ||= count
-          Thread.new{ logger.info "Waiting for #{EventMachine.connection_count} connections to finish." if @wait_count != count }
-          EventMachine.next_tick self.method(:graceful_shutdown_check)
-        end
-      end
-    end
-
-    # TODO: where does EventMachine.connection_count come from?
     def fast_shutdown(signal)
       EventMachine.stop_server(@server) if @server
-      Thread.new{ logger.info "Received #{signal} signal. No longer accepting new connections." }
-      Thread.new{ logger.info "Maximum time to wait for connections is #{MAX_FAST_SHUTDOWN_SECONDS} seconds." }
-      Thread.new{ logger.info "Waiting for #{EventMachine.connection_count} connections to finish." }
+      threads = []
+      threads << Thread.new{ logger.info "Received #{signal} signal. No longer accepting new connections." }
+      threads << Thread.new{ logger.info "Maximum time to wait for connections is #{MAX_FAST_SHUTDOWN_SECONDS} seconds." }
+      threads << Thread.new{ logger.info "Waiting for #{@counter} connections to finish." }
+      threads.each { |thr| thr.join }
       @server = nil
-      EventMachine.stop_event_loop
-      #EventMachine.stop_event_loop if EventMachine.connection_count == 0
-      #Thread.new do
-      #  sleep MAX_FAST_SHUTDOWN_SECONDS
-      #  $kernel.exit!
-      #end
+      EventMachine.stop_event_loop if @counter == 0
+      Thread.new do
+        sleep MAX_FAST_SHUTDOWN_SECONDS
+        $kernel.exit!
+      end
     end
     
 

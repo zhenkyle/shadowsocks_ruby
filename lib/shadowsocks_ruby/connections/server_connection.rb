@@ -42,6 +42,7 @@ module ShadowsocksRuby
 
       def post_init
         logger.info {"Accepted #{peer}"}
+        App.instance.incr
         super()
       end
 
@@ -56,6 +57,11 @@ module ShadowsocksRuby
         @plexer
       rescue EventMachine::ConnectionError => e
         raise ConnectionError, e.message + " when connect to #{host}:#{port}"
+      end
+
+      def unbind
+        App.instance.decr
+        super()
       end
 
     end
