@@ -22,6 +22,6 @@ Scenario: shadowsocks origin version with http_simple obfuscator
 
 Scenario: shadowsocks origin version with tls_ticket obfuscator
   When I run `docker run --rm --net=host zhenkyle/shadowsocksr ssserver -k secret -o tls1.2_ticket_auth_compatible` in background
-  And I run `sslocal-ruby -s 127.0.0.1 -k secret -o tls_ticket` in background
+  And I run `sslocal-ruby -s 127.0.0.1 -k secret -o tls1.2_ticket_auth_compatible` in background
   And I run `curl --socks5-hostname 127.0.0.1 http://www.example.com/`
   Then the output from "curl --socks5-hostname 127.0.0.1 http://www.example.com/" should contain "<h1>Example Domain</h1>"

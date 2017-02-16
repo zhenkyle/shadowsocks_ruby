@@ -252,13 +252,13 @@ module ShadowsocksRuby
         return nil
       end
       case options[:obfs_name]
-      when "http_simple"
+      when "http_simple", "http_simple_compatible"
         ["http_simple", {:host => options[:server], :port => options[:port], :obfs_param => options[:obfs_param]}]
       when "http_simple_strict"
         ["http_simple", {:host => options[:server], :port => options[:port], :obfs_param => options[:obfs_param], :compatible => false}]
-      when "tls_ticket"
+      when "tls1.2_ticket_auth", "tls1.2_ticket_auth_compatible"
         ["tls_ticket", {:host => options[:server], :obfs_param => options[:obfs_param]}]
-      when "tls_ticket_strict"
+      when "tls1.2_ticket_auth_strict"
         ["tls_ticket", {:host => options[:server], :obfs_param => options[:obfs_param], :compatible => false}]
       else
         raise AppError, "no such protocol: #{options[:obfs_name]}"

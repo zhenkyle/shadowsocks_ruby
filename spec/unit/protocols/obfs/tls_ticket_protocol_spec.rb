@@ -13,10 +13,7 @@ RSpec.describe ShadowsocksRuby::Protocols::TlsTicketProtocol do
       make_an_obfs_protocol(str, {host: '127.0.0.1', key: 'akey' * 4, obfs_param: obfs_param})
     }
     it "should look like a ClinetChangeCipherSpec + HandShake + Application Pharse" do
-      expect(subject.next_protocol).to receive(:send_data) do |arg|
-        expect(arg).to start_with([0x14, 3, 3].pack("C3"))
-      end
-      subject.tcp_send_to_remoteserver 'abcdefg' * 20
+      # see integration test
     end
   end
 
