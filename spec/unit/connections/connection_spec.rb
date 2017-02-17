@@ -12,8 +12,7 @@ RSpec.describe "ShadowsocksRuby::Connections::Connection" do
       end
 
       Object.send(:remove_const, :DummyConnection) if Object.constants.include?(:DummyConnection)
-      class DummyConnection < EventMachine::Connection
-        include ShadowsocksRuby::Connections::Connection
+      class DummyConnection < ShadowsocksRuby::Connections::Connection
         def process_hook
           data = async_recv(-1)
           $dd.succeed data
@@ -27,12 +26,6 @@ RSpec.describe "ShadowsocksRuby::Connections::Connection" do
           send_data "hello, world"
         end
       end
-      #class DummyClient < EventMachine::Connection
-      #  def post_init
-      #    send_data "hello, world"
-      #  end
-      #end
-      #EventMachine.connect '127.0.0.1', 8388, DummyClient
     end
   end
 
@@ -45,8 +38,7 @@ RSpec.describe "ShadowsocksRuby::Connections::Connection" do
       end
 
       Object.send(:remove_const, :DummyConnection) if Object.constants.include?(:DummyConnection)
-      class DummyConnection < EventMachine::Connection
-        include ShadowsocksRuby::Connections::Connection
+      class DummyConnection < ShadowsocksRuby::Connections::Connection
         def process_hook
           data = async_recv 5
           $dd.succeed data
@@ -72,8 +64,7 @@ RSpec.describe "ShadowsocksRuby::Connections::Connection" do
       end
 
       Object.send(:remove_const, :DummyConnection) if Object.constants.include?(:DummyConnection)
-      class DummyConnection < EventMachine::Connection
-        include ShadowsocksRuby::Connections::Connection
+      class DummyConnection < ShadowsocksRuby::Connections::Connection
         def process_hook
           data = async_recv_until("\r\n")
           $dd.succeed data
@@ -99,8 +90,7 @@ RSpec.describe "ShadowsocksRuby::Connections::Connection" do
       end
 
       Object.send(:remove_const, :DummyConnection) if Object.constants.include?(:DummyConnection)
-      class DummyConnection < EventMachine::Connection
-        include ShadowsocksRuby::Connections::Connection
+      class DummyConnection < ShadowsocksRuby::Connections::Connection
         def process_hook
           send_data "hello, world"
           Fiber.yield

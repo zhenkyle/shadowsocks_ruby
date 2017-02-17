@@ -14,9 +14,7 @@ RSpec.describe "ShadowsocksRuby::Connections::BackendConnection" do
       end
 
       Object.send(:remove_const, :DummyConnection) if Object.constants.include?(:DummyConnection)
-      class DummyConnection < EventMachine::Connection
-        include ShadowsocksRuby::Connections::Connection
-        include ShadowsocksRuby::Connections::ServerConnection
+      class DummyConnection < ShadowsocksRuby::Connections::ServerConnection
         def process_hook
           data = async_recv(-1)
           create_plexer('127.0.0.1', 8388, DummyBackendConnection)
@@ -25,9 +23,7 @@ RSpec.describe "ShadowsocksRuby::Connections::BackendConnection" do
       end
 
       Object.send(:remove_const, :DummyBackendConnection) if Object.constants.include?(:DummyBackendConnection)
-      class DummyBackendConnection < EventMachine::Connection
-        include ShadowsocksRuby::Connections::Connection
-        include ShadowsocksRuby::Connections::BackendConnection
+      class DummyBackendConnection < ShadowsocksRuby::Connections::BackendConnection
         def process_hook
           async_recv(-1)
         end

@@ -17,7 +17,7 @@ module ShadowsocksRuby
   #
   #    
   module Connections
-    # Mixed-in code to provide fiber enabled asynchronously receive 
+    # This class added fiber enabled asynchronously receive 
     # function and pressure controled +send_data+ to EventMachine::Connection
     #
     # User code should define +process_hook+ which hopefully implement a state machine .
@@ -25,8 +25,7 @@ module ShadowsocksRuby
     # *Note:* User code should not override +post_init+ and +receive_data+, it is by design.
     #
     # @example
-    #     class DummyConnection < EventMachine::Connection
-    #       include ShadowsocksRuby::Connections::Connection
+    #     class DummyConnection < ShadowsocksRuby::Connections::Connection
     #       def process_hook
     #         @i ||= 0
     #         @i += 1
@@ -35,7 +34,7 @@ module ShadowsocksRuby
     #       end
     #     end
     #
-    module Connection
+    class Connection < EventMachine::Connection
       # 512K, used to pause plexer when plexer.get_outbound_data_size > this value
       PressureLevel = 524288
 
@@ -174,22 +173,6 @@ module ShadowsocksRuby
         @plexer.close_connection_after_writing if @plexer != nil
       end
 
-      alias tcp_receive_from_client async_recv
-      alias tcp_receive_from_remoteserver async_recv
-      alias tcp_receive_from_localbackend async_recv
-      alias tcp_receive_from_destination async_recv
-      alias tcp_send_to_client send_data
-      alias tcp_send_to_remoteserver send_data
-      alias tcp_send_to_localbackend send_data
-      alias tcp_send_to_destination send_data
-      alias udp_receive_from_client async_recv
-      alias udp_receive_from_remoteserver async_recv
-      alias udp_receive_from_localbackend async_recv
-      alias udp_receive_from_destination async_recv
-      alias udp_send_to_client send_data
-      alias udp_send_to_remoteserver send_data
-      alias udp_send_to_localbackend send_data
-      alias udp_send_to_destination send_data
     end
   end
 end

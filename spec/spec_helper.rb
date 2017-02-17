@@ -15,3 +15,13 @@ RSpec.configure do |config|
   end
   config.warnings = true
 end
+
+class NullLoger < Logger
+  def initialize(*args)
+  end
+
+  def add(*args, &block)
+  end
+end
+
+ShadowsocksRuby::App.instance.logger = NullLoger.new

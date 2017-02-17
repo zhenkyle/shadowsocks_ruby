@@ -14,9 +14,7 @@ RSpec.describe "ShadowsocksRuby::Connections::ServerConnection" do
       end
 
       Object.send(:remove_const, :DummyConnection) if Object.constants.include?(:DummyConnection)
-      class DummyConnection < EventMachine::Connection
-        include ShadowsocksRuby::Connections::Connection
-        include ShadowsocksRuby::Connections::ServerConnection
+      class DummyConnection < ShadowsocksRuby::Connections::ServerConnection
         def process_hook
           data = async_recv(-1)
           $dd.succeed data, self

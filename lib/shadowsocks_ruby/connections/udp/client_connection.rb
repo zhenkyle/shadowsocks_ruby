@@ -1,19 +1,9 @@
 module ShadowsocksRuby
   module Connections
-    # Provides various functionality code of a UDP Connection.
-    #
-    # @example
-    #     class DummyConnection < EventMachine::Connection
-    #       include ShadowsocksRuby::Connections::UDP::ClientConnection
-    #     end
-    #     # some how get a DummyConnection object
-    #     # dummy_connection = ...
-    #     # dummy_connection.plexer_protocol.udp_process_client will be called looply
+    # Provides various class for a TCP Connection.
     module UDP
       # (see TCP::ClientConnection)
-      module ClientConnection
-        include ShadowsocksRuby::Connections::Connection
-        include ShadowsocksRuby::Connections::ServerConnection
+      class ClientConnection < ServerConnection
 
         # (see TCP::ClientConnection#initialize)
         def initialize protocol_stack, params, backend_protocol_stack, backend_params
@@ -36,6 +26,9 @@ module ShadowsocksRuby
           data = packet_protocol.udp_receive_from_client(-1)
           plexer.packet_protocol.udp_send_to_remoteserver(data)
         end
+
+        alias udp_receive_from_client async_recv
+        alias udp_send_to_client send_data
 
       end
     end

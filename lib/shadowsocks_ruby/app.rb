@@ -31,7 +31,7 @@ module ShadowsocksRuby
     MAX_FAST_SHUTDOWN_SECONDS = 10
 
     attr_reader :options
-    attr_reader :logger
+    attr_accessor :logger
 
     @@options = {}
     
@@ -97,6 +97,7 @@ module ShadowsocksRuby
 
     def decr
       @counter -= 1
+      @server ||= nil # quick fix for warning in connection unit test
       if @server.nil?
         logger.info "Waiting for #{@counter} connections to finish."
       end

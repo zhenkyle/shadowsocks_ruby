@@ -1,10 +1,8 @@
 module ShadowsocksRuby
   module Connections
     module TCP
-      # (see TCP::ClientConnection)
-      module LocalBackendConnection
-        include ShadowsocksRuby::Connections::Connection
-        include ShadowsocksRuby::Connections::ServerConnection
+      # A LocalBackendConnection's job is relay data from localbackend to destination.
+      class LocalBackendConnection < ShadowsocksRuby::Connections::ServerConnection
 
         def process_first_packet
           address_bin = packet_protocol.tcp_receive_from_localbackend(-1)
@@ -23,6 +21,9 @@ module ShadowsocksRuby
           data = packet_protocol.tcp_receive_from_localbackend(-1)
           plexer.packet_protocol.tcp_send_to_destination(data)
         end
+
+        alias tcp_receive_from_localbackend async_recv
+        alias tcp_send_to_localbackend send_data
 
       end
     end

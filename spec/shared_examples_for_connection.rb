@@ -12,10 +12,8 @@ RSpec.shared_examples "a server connection" do |klass|
         expect(conn_obj).to respond_to(:create_plexer)
         done
       end
-      $klass = klass
       Object.send(:remove_const, :DummyConnection) if Object.constants.include?(:DummyConnection)
-      class DummyConnection < EventMachine::Connection
-        include $klass
+      class DummyConnection < klass
         def process_hook
           data = async_recv(-1)
           $dd.succeed data, self
@@ -52,20 +50,16 @@ RSpec.shared_examples "a backend connection" do |klass, klass1|
         expect(conn_obj.plexer.packet_protocol).not_to eq(nil)
         done
       end
-      $klass1 = klass1
       Object.send(:remove_const, :DummyConnection) if Object.constants.include?(:DummyConnection)
-      class DummyConnection < EventMachine::Connection
-        include $klass1
+      class DummyConnection < klass1
         def process_hook
           data = async_recv(-1)
           create_plexer('127.0.0.1', 8388, DummyBackendConnection)
           $dd.succeed data, self
         end
       end
-      $klass = klass
       Object.send(:remove_const, :DummyBackendConnection) if Object.constants.include?(:DummyBackendConnection)
-      class DummyBackendConnection < EventMachine::Connection
-        include $klass
+      class DummyBackendConnection < klass
         def process_hook
           Fiber.yield
         end

@@ -1,9 +1,8 @@
 module ShadowsocksRuby
   module Connections
 
-    # Mixed-in code to provide functionality to a ServerConnection
-    # ,whose peer is a downstream peer, like a Client or a LocalBackend.
-    module ServerConnection
+    # A ServerConnection is a connection whose peer is a downstream peer, like a Client or a LocalBackend.
+    class ServerConnection < Connection
       
       # Packet Protocol
       #

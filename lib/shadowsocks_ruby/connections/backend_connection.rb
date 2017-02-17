@@ -1,8 +1,7 @@
 module ShadowsocksRuby
   module Connections
-    # Mixed-in code to provide functionality to a BackendConnection
-    # ,whose peer is a upstream peer, like a Destinatiion or a RemoteServer.
-    module BackendConnection
+    # A BackendConnection is a connection whose peer is a upstream peer, like a Destinatiion or a RemoteServer.
+    class BackendConnection < Connection
       
       # Packet Protocol
       #

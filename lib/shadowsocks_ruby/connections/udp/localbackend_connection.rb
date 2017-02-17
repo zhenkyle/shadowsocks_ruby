@@ -1,10 +1,8 @@
 module ShadowsocksRuby
   module Connections
     module UDP
-      # (see TCP::ClientConnection)
-      module LocalBackendConnection
-        include ShadowsocksRuby::Connections::Connection
-        include ShadowsocksRuby::Connections::ServerConnection
+      # (see TCP::LocalBackendConnection)
+      class LocalBackendConnection < ShadowsocksRuby::Connections::ServerConnection
 
         def process_first_packet
           address_bin = packet_protocol.udp_receive_from_localbackend(-1)
@@ -22,6 +20,9 @@ module ShadowsocksRuby
           data = packet_protocol.udp_receive_from_localbackend(-1)
           plexer.packet_protocol.udp_send_to_destination(data)
         end
+
+        alias udp_receive_from_localbackend async_recv
+        alias udp_send_to_localbackend send_data
 
       end
     end
