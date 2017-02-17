@@ -145,7 +145,7 @@ module ShadowsocksRuby
           raise OutOfFiberContextError, "should not go here"
         end
       rescue MyErrorModule => e
-        logger.error("connection") {e.message}
+        logger.warn("connection") {e.message}
         close_connection
       rescue => e
         logger.error("connection") {e}
