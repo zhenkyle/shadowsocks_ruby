@@ -11,3 +11,4 @@ services:
 before_install:
   - gem install bundler -v 1.13.6
   - docker pull zhenkyle/docker-sslocal
+  - docker pull zhenkyle/shadowsocksr
