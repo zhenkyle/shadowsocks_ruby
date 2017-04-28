@@ -7,7 +7,7 @@ module ShadowsocksRuby
 
       attr_accessor :next_protocol
 
-      # @param [Hash]                          configuration parameters
+      # @param [Hash] params                         Configuration parameters
       def initialize params = {}
         @params = {}.merge(params)
       end

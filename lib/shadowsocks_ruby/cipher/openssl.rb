@@ -3,24 +3,21 @@ require 'openssl'
 module ShadowsocksRuby
   module Cipher
 
-    # Encapsulate RubyGems version of OpenSSL, the gems version is newer than
-    # the version in Ruby Standand Library.
-    #
-    # Cipher methods provided by Ruby OpenSSL library is dicided by
-    # the OpenSSL library comes with ruby on your system.
-    # To work with specific version of OpenSSL library other than the version
-    # comes with ruby, you may need to specify the path where OpenSSL is installed.
+    # Encapsulate RubyGems version of OpenSSL, the RubyGems version OpenSSL can be installed with specific OpenSSL version you choose.
+    #  
+    # Note1: To work with a specific version of OpenSSL library other than the version
+    # comes with ruby, you may need to specify the path where OpenSSL is installed:
     #
     #    gem install openssl -- --with-openssl-dir=/opt/openssl
+    #    # See https://github.com/ruby/openssl for more detail.
     #
-    # Use this command to get a full list of cipher methods supported on your system.
+    # Note2: Use this command to get a full list of cipher methods supported on your system.
     #    ruby -e "require 'openssl'; puts OpenSSL::Cipher.ciphers" 
-    # 
-    #
-    # See https://github.com/ruby/openssl for more detail.
     #
     # Normally you should use {ShadowsocksRuby::Cipher#build} to get an
     # instance of this class.
+    #
+
     class OpenSSL
 
       # Return the key, which length is decided by the cipher method.

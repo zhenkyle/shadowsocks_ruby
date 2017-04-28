@@ -24,7 +24,7 @@ module ShadowsocksRuby
             "Mozilla/5.0 (iPad; CPU OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3",
             "Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3"]
 
-      # @param [Hash]                          configuration parameters
+      # @param [Hash] params                          Configuration parameters
       # @option params [String]                :host  shadowsocks server address, required by remoteserver protocol
       # @option params [String]                :port  shadowsocks server port, required by remoteserver protocol
       # @option params [Boolean]               :compatible  compatibility with origin mode, default _true_

@@ -11,7 +11,7 @@ module ShadowsocksRuby
     class RC4_MD5
       attr_reader :key
 
-      # (see OpenSSL#initialize)
+      # @param [String] password         Password
       def initialize password
         @key = ShadowsocksRuby::Cipher.bytes_to_key(password, 16, 16)
         @cipher_encrypt = ::OpenSSL::Cipher.new('rc4').encrypt

@@ -68,7 +68,7 @@ module ShadowsocksRuby
     include MyErrorModule
   end
   
-    # This indicates a failure in Connection
+    # This indicates a failure in Connection.
   class ConnectionError < StandardError
     include MyErrorModule
   end
@@ -78,7 +78,7 @@ module ShadowsocksRuby
     include MyErrorModule
   end
 
-  # This indicates something is unimplemented
+  # This indicates something is unimplemented.
   class UnimplementError < StandardError
     include MyErrorModule
   end

@@ -3,15 +3,14 @@ module ShadowsocksRuby
     # A BackendConnection is a connection whose peer is a upstream peer, like a Destinatiion or a RemoteServer.
     class BackendConnection < Connection
       
-      # Packet Protocol
-      #
       # A Strategy Pattern for replacing protocol algorithm
       #
-      # all read from {BackendConnection}'s {packet_protocol} is just data,
-      # 
-      # the first send to {packet_protocol} chould be address_bin (for a {RemoteServerConnection}) 
-      # or data (for a {DestinationConnection}),
-      # other send to {packet_protocol} should be just data
+      # All read packet returned from a {packet_protocol} ({TCP::RemoteServerConnection} and {TCP::DestinationConnection} etc. ) 
+      # is just data.
+      #
+      # The first packet send to {packet_protocol} must be address_bin for a {TCP::RemoteServerConnection} and 
+      # data for a {TCP::DestinationConnection},
+      # The second and other send to {packet_protocol} must be data
       #
       # @return [ShadowsocksRuby::Protocols::SomePacketProtocol]
       # @see ShadowsocksRuby::Protocols

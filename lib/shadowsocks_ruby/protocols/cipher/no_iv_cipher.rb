@@ -7,7 +7,7 @@ module ShadowsocksRuby
 
       attr_accessor :next_protocol
 
-      # @param [Hash]                                                     configuration parameters
+      # @param [Hash] params                                              Configuration parameters
       # @option params [Cipher::Table] :cipher                            a cipher object without IV,  +required+
       def initialize params = {}
         @cipher = params[:cipher] or raise ProtocolError, "params[:cipher] is required"

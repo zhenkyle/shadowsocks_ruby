@@ -2,19 +2,19 @@ require 'openssl'
 module ShadowsocksRuby
   
   # This module provide classes to encapsulate different underlying crypto library,
-  # to utilize them with an unique interface.
+  # and use them with an unique interface.
   #
   # It also provide some useful utility functions like 
   # {.hmac_sha1_digest} and {.bytes_to_key}.
   #
+  # Note: All instance methods in this namespace can be used as class methods.
+  #
   # @example
   #    # Demonstrate how to build a cipher object and it's typical use case.
   #    cipher = ShadowsocksRuby::Cipher.build('aes-256-cfb', 'secret123')
-  #    iv = cipher.random_id
+  #    iv = cipher.random_iv
   #    encrypted_text = cipher.encrypt("hello world!", iv)
   #    puts cipher.decrypt(encrypted_text, iv) # hello world!
-  #    puts cipher.key # ...... # in case key need to be used in some Digest algorithm.
-
   module Cipher
     extend self
 
@@ -24,11 +24,10 @@ module ShadowsocksRuby
     # * table
     # * rc4-md5
     # * chacha20, chacha2-ietf, salsa20 which are provided by RbNaCl
-    # * all cipher methods supported by ruby gems OpenSSL, use
-    #
+    # * All cipher methods supported by openssl (aes-256-cfb, aes-256-ctr, etc.) 
+    #        # To get a full list of all cipher methods supported by ruby gems OpenSSL, use
     #        ruby -e "require 'openssl'; puts OpenSSL::Cipher.ciphers" 
     #
-    #   to get a full list.
     # @param [String] method         Cipher methods
     # @param [String] password       Password
     # @return [OpenSSL, Table, RC4_MD5, RbNaCl] A duck type cipher object
@@ -58,7 +57,7 @@ module ShadowsocksRuby
 
     # Equivalent to OpenSSL's EVP_BytesToKey() with count = 1
     #
-    # @param [String] Password        Password bytes
+    # @param [String] password        Password bytes
     # @param [Integer] key_len        Key length, the length of key bytes to generate 
     # @param [Integer] iv_len         IV length, needed by internal algorithm
     # @return [String]                Key bytes, of *key_len* length

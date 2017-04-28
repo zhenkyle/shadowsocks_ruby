@@ -44,7 +44,7 @@ module ShadowsocksRuby
 
       attr_accessor :next_protocol
 
-      # @param [Hash]                          configuration parameters
+      # @param [Hash] params                                Configuration parameters
       # @option params [String]                :host        shadowsocks server address, required by remoteserver protocol
       # @option params [String]                :key         key, required by both remoteserver and localbackend protocol
       # @option params [Boolean]               :compatible  compatibility with origin mode, default _true_

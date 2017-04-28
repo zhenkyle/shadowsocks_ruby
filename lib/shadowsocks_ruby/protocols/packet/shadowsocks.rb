@@ -16,7 +16,7 @@ module ShadowsocksRuby
       ATYP_DOMAIN    = 3
       ATYP_IPV6      = 4
 
-      # @param [Hash]                          configuration parameters
+      # @param [Hash] params                         Configuration parameters
       def initialize params = {}
       end
 

@@ -22,7 +22,7 @@ module ShadowsocksRuby
       ATYP_IPV6      = 4
       SOCKS5         = 5
 
-      # @param [Hash]                          configuration parameters
+      # @param [Hash] params                         Configuration parameters
       def initialize params = {}
         @params = {}.merge(params)
       end

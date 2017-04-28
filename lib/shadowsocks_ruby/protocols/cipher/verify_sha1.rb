@@ -13,7 +13,7 @@ module ShadowsocksRuby
       ATYP_DOMAIN    = 3
       ATYP_IPV6      = 4
 
-      # @param [Hash]                                                     configuration parameters
+      # @param [Hash] params                                                           Configuration parameters
       # @option params [Cipher::OpenSSL, Cipher::RbNaCl, Cipher::RC4_MD5] :cipher      a cipher object with IV and a key, +required+
       # @option params [Boolean]                                          :compatible  compatibility with origin mode, default _true_
       def initialize params = {}

@@ -11,17 +11,21 @@ module ShadowsocksRuby
     # Normally you should use {ShadowsocksRuby::Cipher#build} to get an
     # instance of this class.
     class Table
-      # (see OpenSSL#initialize)
+      # @param [String] password         Password
       def initialize password
         @encrypt_table, @decrypt_table = get_table(password)
       end
 
-      # (see OpenSSL#encrypt)
+      # Encrypt message by provided IV
+      # @param [String] message
+      # @return [String]                  Encrypted Message
       def encrypt(message)
         translate @encrypt_table, message
       end
 
-      # (see OpenSSL#decrypt)
+      # Decrypt message by provided IV
+      # @param [String] message
+      # @return [String]                   Decrypted Message
       def decrypt(message)
         translate @decrypt_table, message
       end
