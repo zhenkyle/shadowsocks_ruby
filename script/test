@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# script/test: Run test suite for application. Optionally pass in a path to an
+#              individual test file to run a single test.
+
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+[ -z "$DEBUG" ] || set -x
+
+script/setup
+
+echo "==> Running tests…"
+
+if [ -n "$1" ]; then
+  # pass arguments to test call. This is useful for calling a single test.
+  echo "use: bin/rspec $1"
+  echo " or: bin/cucumber $1"
+else
+  bin/rake test
+fi

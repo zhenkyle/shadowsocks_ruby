@@ -11,4 +11,5 @@ end
 
 YARD::Rake::YardocTask.new
 
-task :default => [:spec, :features]
+task :default => [:test]
+task :test => [:spec, :features]
