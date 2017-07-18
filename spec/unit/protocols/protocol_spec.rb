@@ -1,5 +1,5 @@
 require "spec_helper"
-require 'shared_examples_for_protocol'
+require 'shared_examples_for_protocols'
 
 describe ShadowsocksRuby::Protocols do
   describe "Protocol is a duck type" do
@@ -13,37 +13,15 @@ describe ShadowsocksRuby::Protocols do
         # should respond to this method
       end
 
-      def raise_me
-        raise ShadowsocksRuby::UnimplementError
-      end
-
-      alias tcp_receive_from_client raise_me
-      alias tcp_send_to_client raise_me
-      alias tcp_receive_from_remoteserver raise_me
-      alias tcp_send_to_remoteserver raise_me
-      alias tcp_receive_from_localbackend raise_me
-      alias tcp_send_to_localbackend raise_me
-      alias tcp_receive_from_destination raise_me
-      alias tcp_send_to_destination raise_me
-
-      alias udp_receive_from_client raise_me
-      alias udp_send_to_client raise_me
-      alias udp_receive_from_remoteserver raise_me
-      alias udp_send_to_remoteserver raise_me
-      alias udp_receive_from_localbackend raise_me
-      alias udp_send_to_localbackend raise_me
-      alias udp_receive_from_destination raise_me
-      alias udp_send_to_destination raise_me
-
     end
     describe DummyProtocol do
       it_behaves_like "a protocol"
     end
   end
-  describe "a protocol can include DummyHelper to save typeing" do
+  describe "A protocol can include BufferHelper to help deal with @buffer" do
     Object.send(:remove_const, :DummyProtocol) if Object.constants.include?(:DummyProtocol)
     class DummyProtocol
-      include ShadowsocksRuby::Protocols::DummyHelper
+      include ShadowsocksRuby::Protocols::BufferHelper
       attr_accessor :next_protocol
       def async_recv n
         # should respond to this method
@@ -52,27 +30,6 @@ describe ShadowsocksRuby::Protocols do
         # should respond to this method
       end
 
-      def raise_me
-        raise ShadowsocksRuby::UnimplementError
-      end
-
-      alias tcp_receive_from_client raise_me
-      alias tcp_send_to_client raise_me
-      alias tcp_receive_from_remoteserver raise_me
-      alias tcp_send_to_remoteserver raise_me
-      alias tcp_receive_from_localbackend raise_me
-      alias tcp_send_to_localbackend raise_me
-      alias tcp_receive_from_destination raise_me
-      alias tcp_send_to_destination raise_me
-
-      alias udp_receive_from_client raise_me
-      alias udp_send_to_client raise_me
-      alias udp_receive_from_remoteserver raise_me
-      alias udp_send_to_remoteserver raise_me
-      alias udp_receive_from_localbackend raise_me
-      alias udp_send_to_localbackend raise_me
-      alias udp_receive_from_destination raise_me
-      alias udp_send_to_destination raise_me
     end
     describe DummyProtocol do
       it_behaves_like "a protocol"

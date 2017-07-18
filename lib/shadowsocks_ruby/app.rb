@@ -162,11 +162,11 @@ module ShadowsocksRuby
         get_packet_protocol,
         get_cipher_protocol,
         get_obfs_protocol
-      ].compact, options[:cipher_name], options[:password])
+      ].compact, options[:cipher_name], options[:password],"TCP")
 
       stack4 = Protocols::ProtocolStack.new([
         ["plain", {}]
-      ], options[:cipher_name], options[:password])
+      ], options[:cipher_name], options[:password],"TCP")
 
       server_args = [
         stack3,
@@ -175,19 +175,19 @@ module ShadowsocksRuby
         {:timeout => options[:timeout]}
       ]
 
-      start_em options[:server], options[:port], Connections::TCP::LocalBackendConnection, server_args
+      start_em options[:server], options[:port], Connections::LocalBackendConnection, server_args
     end
 
     def start_client
       stack1 = Protocols::ProtocolStack.new([
           ["socks5", {}]
-      ], options[:cipher_name], options[:password])
+      ], options[:cipher_name], options[:password],"TCP")
 
       stack2 = Protocols::ProtocolStack.new([
         get_packet_protocol,
         get_cipher_protocol,
         get_obfs_protocol
-      ].compact, options[:cipher_name], options[:password])
+      ].compact, options[:cipher_name], options[:password],"TCP")
 
       local_args = [
         stack1,
@@ -196,7 +196,7 @@ module ShadowsocksRuby
         {:timeout => options[:timeout]}
       ]
 
-      start_em options[:local_addr], options[:local_port], Connections::TCP::ClientConnection, local_args
+      start_em options[:local_addr], options[:local_port], Connections::ClientConnection, local_args
     end
 
     def start_em host, port, klass_server, server_args

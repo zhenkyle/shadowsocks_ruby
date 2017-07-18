@@ -5,7 +5,7 @@ module ShadowsocksRuby
 
     # Implementation of the Table cipher method.
     #
-    # Note: this cipher method have neither IV or key, so may be
+    # Note: this cipher method have neither IV nor key, so may be
     # incompatible with protocols which needs IV or key.
     # 
     # Normally you should use {ShadowsocksRuby::Cipher#build} to get an

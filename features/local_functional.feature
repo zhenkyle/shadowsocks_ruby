@@ -22,7 +22,7 @@ Scenario: shadowsocks origin version
   """bash
   curl --socks5-hostname 127.0.0.1 http://$(ip route get 1 | awk '{print $NF;exit}'):5000/
   """
-  Then the output should contain "<h1>Example Domain</h1>"
+  Then the output from "myscript" should contain "<h1>Example Domain</h1>"
 
 Scenario: shadowsocks origin version with http_simple obfuscator
   And I wait 15 seconds for the command to start up
@@ -33,9 +33,9 @@ Scenario: shadowsocks origin version with http_simple obfuscator
   """bash
   curl --socks5-hostname 127.0.0.1 http://$(ip route get 1 | awk '{print $NF;exit}'):5000/
   """
-  Then the output should contain "<h1>Example Domain</h1>"
+  Then the output from "myscript" should contain "<h1>Example Domain</h1>"
 
-Scenario: shadowsocks origin version with tls_ticket obfuscator
+ Scenario: shadowsocks origin version with tls_ticket obfuscator
   And I wait 15 seconds for the command to start up
   When I run `docker run --rm --net=host zhenkyle/shadowsocksr ssserver -k secret -o tls1.2_ticket_auth_compatible` in background
   And I wait 1 seconds for a command to start up
@@ -44,4 +44,4 @@ Scenario: shadowsocks origin version with tls_ticket obfuscator
   """bash
   curl --socks5-hostname 127.0.0.1 http://$(ip route get 1 | awk '{print $NF;exit}'):5000/
   """
-  Then the output should contain "<h1>Example Domain</h1>"
+  Then the output from "myscript" should contain "<h1>Example Domain</h1>"

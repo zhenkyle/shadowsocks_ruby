@@ -14,25 +14,22 @@ end
 require "shadowsocks_ruby/protocols/protocol"
 require "shadowsocks_ruby/protocols/protocol_stack"
 
-# autoload protocols in these directories
-%w[ packet cipher obfs ].each do |dir|
-  Dir[File.join(File.dirname(__FILE__) ,"shadowsocks_ruby", "protocols", dir , "*.rb")].each do |file|
-    file = File.basename(file,".rb")
-    require "shadowsocks_ruby/protocols/#{dir}/#{file}"
-  end
+# autoload protocols
+( Dir.glob(File.join(File.dirname(__FILE__) ,"shadowsocks_ruby", "protocols","**","*.rb")) - \
+  [
+   File.join(File.dirname(__FILE__) ,"shadowsocks_ruby", "protocols",'protocol.rb'),\
+   File.join(File.dirname(__FILE__) ,"shadowsocks_ruby", "protocols", 'protocol_stack.rb')
+  ]).each do |file|
+    require file
 end
 
 require "shadowsocks_ruby/connections/connection"
 require "shadowsocks_ruby/connections/server_connection"
 require "shadowsocks_ruby/connections/backend_connection"
-
-%w[ client_connection remoteserver_connection localbackend_connection destination_connection ].each do |file|
-  require "shadowsocks_ruby/connections/tcp/#{file}"
-end
-
-%w[ client_connection remoteserver_connection localbackend_connection destination_connection ].each do |file|
-  require "shadowsocks_ruby/connections/udp/#{file}"
-end
+require "shadowsocks_ruby/connections/client_connection"
+require "shadowsocks_ruby/connections/remoteserver_connection"
+require "shadowsocks_ruby/connections/localbackend_connection"
+require "shadowsocks_ruby/connections/destination_connection"
 
 require "shadowsocks_ruby/app"
 
