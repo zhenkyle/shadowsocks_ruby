@@ -10,11 +10,11 @@ cd "$(dirname "$0")/.."
 script/bootstrap
 
 
-if [ -z "docker images -q zhenkyle/docker-sslocal" ]; then
+if [ -z `docker images -q zhenkyle/docker-sslocal` ]; then
   docker pull zhenkyle/docker-sslocal
 fi
 
-if [ -z "docker images -q zhenkyle/shadowsocksr" ]; then
+if [ -z `docker images -q zhenkyle/shadowsocksr` ]; then
   docker pull zhenkyle/shadowsocksr
 fi
 
